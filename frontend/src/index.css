@@ -7,3 +7,9 @@ h3 {
 .rating span {
   margin: 0.1rem;
 }
+.loading-spinner {
+  display: block;
+  height: 100px;
+  margin: auto;
+  width: 100px;
+}
