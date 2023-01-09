@@ -1,3 +1,4 @@
+//npm packages
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -10,13 +11,17 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import Rating from "../components/Rating";
+
+//actions
 import { listProductDetails } from "../actions/productActions";
+
+//components
+import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 const ProductScreen = () => {
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
   const { id } = useParams();
   const navigate = useNavigate();
   const productDetails = useSelector((state) => state.productDetails);
@@ -25,7 +30,7 @@ const ProductScreen = () => {
 
   useEffect(() => {
     dispatch(listProductDetails(id));
-  }, [dispatch]);
+  }, [dispatch, id, qty]);
 
   const addToCartHandler = () => {
     navigate(`/cart/${id}?qty=${qty}`);

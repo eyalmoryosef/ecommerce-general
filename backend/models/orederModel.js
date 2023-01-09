@@ -7,12 +7,12 @@ const orderSchema = mongoose.Schema(
       require: true,
       ref: "User",
     },
-    orderItem: [
+    orderItems: [
       {
-        name: { type: String, require: true },
-        qty: { type: Number, require: true },
-        image: { type: String, require: true },
-        price: { type: Number, requir: true },
+        name: { type: String, required: true },
+        qty: { type: Number, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           require: true,
@@ -28,7 +28,7 @@ const orderSchema = mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      require: true,
+      required: true,
     },
     paymentResult: {
       id: { type: String },
@@ -38,22 +38,27 @@ const orderSchema = mongoose.Schema(
     },
     taxPrice: {
       type: Number,
-      require: true,
+      required: true,
       default: 0.0,
     },
     shippingPrice: {
       type: Number,
-      require: true,
+      required: true,
       default: 0.0,
     },
     totalPrice: {
       type: Number,
-      require: true,
+      required: true,
+      default: 0.0,
+    },
+    itemsPrice: {
+      type: Number,
+      required: true,
       default: 0.0,
     },
     isPaid: {
       type: Boolean,
-      require: true,
+      required: true,
       default: false,
     },
     paidAt: {
@@ -61,7 +66,7 @@ const orderSchema = mongoose.Schema(
     },
     isDeliverd: {
       type: Boolean,
-      require: true,
+      required: true,
       default: false,
     },
     deliverdAt: {
