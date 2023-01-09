@@ -26,7 +26,6 @@ import UserListScreen from "./screens/UserListScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 
 const App = () => {
-  useEffect(() => {});
   return (
     <Router>
       <Header />
