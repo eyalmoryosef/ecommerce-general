@@ -8,7 +8,11 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 //actions
-import { getUserDetails, updateUser } from "../actions/userActions";
+import {
+  getUserDetails,
+  loginInfoUpdate,
+  updateUser,
+} from "../actions/userActions";
 
 //constants
 
@@ -47,7 +51,10 @@ const UserEditScreen = () => {
         setIsAdmin(user.isAdmin);
       }
     }
-  }, [dispatch, user, userId, successUpdate, navigate]);
+    if (userId === userInfo._id) {
+      dispatch(loginInfoUpdate());
+    }
+  }, [dispatch, user, userId, successUpdate, navigate, userInfo._id]);
 
   const submitHandler = (e) => {
     e.preventDefault();

@@ -27,6 +27,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
+  USER_LOGIN_INFO_UPDATE,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -55,6 +56,20 @@ export const login = (email, password) => async (dispatch) => {
           : error.message,
     });
   }
+};
+export const loginInfoUpdate = () => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const {
+    userDetails: { user },
+  } = getState();
+
+  const data = { ...user, token: userInfo.token };
+  localStorage.setItem("userInfo", JSON.stringify(data));
+
+  dispatch({ type: USER_LOGIN_INFO_UPDATE, payload: data });
 };
 
 //logout
