@@ -67,6 +67,7 @@ export const loginInfoUpdate = () => async (dispatch, getState) => {
   } = getState();
 
   const data = { ...user, token: userInfo.token };
+
   localStorage.setItem("userInfo", JSON.stringify(data));
 
   dispatch({ type: USER_LOGIN_INFO_UPDATE, payload: data });

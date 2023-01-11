@@ -9,7 +9,15 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 //actions
-import { listProducts, deleteProduct } from "../actions/productActions";
+import {
+  listProducts,
+  deleteProduct,
+  createProduct,
+} from "../actions/productActions";
+
+//constants
+import { PRODUCT_CREATE_RESET } from "../constants/productsConstants";
+
 const ProductListScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,20 +29,30 @@ const ProductListScreen = () => {
   const {
     error: deleteError,
     loading: loadingDelete,
-    succsess: successDelete,
+    success: successDelete,
   } = productDelete;
 
-  //const { success: successDelete } = useSelector((state) => state.userDelete);
+  const {
+    error: createError,
+    loading: loadingCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = useSelector((state) => state.productCreate);
 
   const { userInfo } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({ type: PRODUCT_CREATE_RESET });
+    if (!userInfo.isAdmin) {
       navigate("/login");
     }
-  }, [dispatch, navigate, userInfo, successDelete]);
+    if (successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, navigate, userInfo, successDelete, successCreate]);
 
   //handlers
   const deleteHandler = (productId) => {
@@ -44,7 +62,9 @@ const ProductListScreen = () => {
     }
   };
 
-  const createProductHandler = () => {};
+  const createProductHandler = () => {
+    dispatch(createProduct());
+  };
 
   return (
     <>
@@ -61,6 +81,8 @@ const ProductListScreen = () => {
 
       {loadingDelete && <Loader />}
       {deleteError && <Message variant='danger'>{deleteError}</Message>}
+      {loadingCreate && <Loader />}
+      {createError && <Message variant='danger'>{createError}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (

@@ -51,14 +51,14 @@ const UserEditScreen = () => {
         setIsAdmin(user.isAdmin);
       }
     }
-    if (userId === userInfo._id) {
-      dispatch(loginInfoUpdate());
-    }
   }, [dispatch, user, userId, successUpdate, navigate, userInfo._id]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(updateUser({ _id: user._id, name, email, isAdmin }));
+    if (userId === user._id) {
+      setTimeout(() => dispatch(loginInfoUpdate()), 1000);
+    }
   };
   return (
     <>
