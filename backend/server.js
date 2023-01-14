@@ -3,6 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import path from "path";
+import morgan from "morgan";
 
 //routes
 import productRoute from "./routes/productRoute.js";
@@ -12,11 +13,16 @@ import uploadRoute from "./routes/uploadRoute.js";
 
 //middleware
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
+dotenv.config();
 
 const app = express();
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
-dotenv.config();
+
 connectDB();
 
 app.use("/api/products", productRoute);

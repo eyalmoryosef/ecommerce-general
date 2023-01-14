@@ -1,6 +1,7 @@
 import e from "express";
 import expressAsyncHandler from "express-async-handler";
 import Product from "../models/productModel.js";
+import User from "../models/userModel.js";
 
 //@desc  fetch all products from database
 //@route  GET /api/products/
@@ -82,10 +83,68 @@ const updateProduct = expressAsyncHandler(async (req, res) => {
   const createdProduct = await product.save();
   res.status(201).json(createdProduct);
 });
+
+//@desc create new review
+//@route  post /api/products/:id/reviews
+//@access   private
+const createProductReview = expressAsyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user._id.toString() === req.userId.toString()
+    );
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("Product already reviewed");
+    } else {
+      const user = await User.findById(req.userId);
+      const review = {
+        name: user.name,
+        rating: Number(rating),
+        comment,
+        user: req.userId,
+      };
+      product.reviews.push(review);
+      product.numReviews = product.reviews.length;
+      product.rating =
+        product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+        product.numReviews;
+
+      await product.save();
+      res.status(201).json({ message: "review added" });
+    }
+  } else {
+    res.status(404);
+    throw new Error("product not found");
+  }
+
+  const createdProduct = await product.save();
+  res.status(201).json(createdProduct);
+});
+
+//@desc get product review
+//@route  get /api/products/:id/reviews
+//@access   private
+const getProductReviews = expressAsyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    res.status(200).json(product.reviews);
+  } else {
+    res.status(404);
+    throw new Error("product not found");
+  }
+});
+
 export {
   getProductById,
   getProducts,
   deleteProduct,
   createProduct,
   updateProduct,
+  createProductReview,
+  getProductReviews,
 };

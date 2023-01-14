@@ -2,9 +2,14 @@ import mongoose from "mongoose";
 
 const reviewSchema = mongoose.Schema(
   {
-    review: { type: String, required: true },
+    name: { type: String, required: true },
     rating: { type: Number, required: true },
     comment: { type: String, required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
@@ -32,7 +37,7 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    review: [reviewSchema],
+    reviews: [reviewSchema],
     rating: {
       type: Number,
       required: true,
