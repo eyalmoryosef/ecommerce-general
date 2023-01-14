@@ -78,11 +78,39 @@ export const updateOrderToPaid = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//@desc  update order is Deliverd
+//@route  Put /api/order/:id/delivered
+//@access   private/admin
+
+export const updateOrderToDeliverd = expressAsyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDeliverd = true;
+    order.deliverdAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error("Order not found!");
+  }
+});
+
 //@desc  get all user orders
 //@route  get /api/order/myorders
 //@access   private
 
 export const getUserOrders = expressAsyncHandler(async (req, res) => {
   const orders = await Order.find({ user: req.userId });
+  res.status(200).json(orders);
+});
+
+//@desc  get all  orders
+//@route  get /api/order
+//@access   private/admin
+
+export const getOrders = expressAsyncHandler(async (req, res) => {
+  const orders = await Order.find({}).populate("user", "id name");
   res.status(200).json(orders);
 });

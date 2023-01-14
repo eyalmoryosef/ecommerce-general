@@ -29,7 +29,9 @@ const PlaceOrderScreen = () => {
       (cart.itemsPrice < 70 ? 0 : cart.itemsPrice * 0.17).toFixed(2)
     );
 
-    cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+    cart.totalPrice = Number(
+      (cart.itemsPrice + cart.shippingPrice + cart.taxPrice).toFixed(2)
+    );
   }
 
   const navigate = useNavigate();
@@ -54,7 +56,8 @@ const PlaceOrderScreen = () => {
     if (success) {
       navigate(`/order/${order._id}`);
     }
-  }, [success, navigate, order._id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, navigate]);
 
   //componnent
   return (

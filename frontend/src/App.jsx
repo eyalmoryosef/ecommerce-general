@@ -21,6 +21,7 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
+import OrderListScreen from "./screens/OrderListScreen";
 
 //middleware
 //import IsTokenExpired from "./middleware/IsTokenExpired";
@@ -41,7 +42,9 @@ const App = () => {
 
             {/* <Route element={<IsTokenExpired />}> */}
             <Route path='/admin/userlist' element={<UserListScreen />} />
+            <Route path='/admin/orderlist' element={<OrderListScreen />} />
             <Route path='/admin/productlist' element={<ProductListScreen />} />
+
             <Route
               path='/admin/product/:id/edit'
               element={<ProductEditScreen />}

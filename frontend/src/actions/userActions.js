@@ -1,6 +1,7 @@
 //npm packages
 import axios from "axios";
 //constants
+import { CART_RESET } from "../constants/cartConstants";
 import { ORDER_USER_LIST_RESET } from "../constants/orderConstants";
 import {
   USER_DETAILS_REQUEST,
@@ -76,10 +77,16 @@ export const loginInfoUpdate = () => async (dispatch, getState) => {
 //logout
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
+  localStorage.removeItem("__paypal_storage__");
+  localStorage.removeItem("cartItems");
+  localStorage.removeItem("paymentMethod");
+  localStorage.removeItem("shippingAddress");
+
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_USER_LIST_RESET });
   dispatch({ type: USER_LIST_RESET });
+  dispatch({ type: CART_RESET });
 };
 
 //REGISTER
