@@ -3,6 +3,7 @@ import axios from "axios";
 //constants
 import { CART_RESET } from "../constants/cartConstants";
 import { ORDER_USER_LIST_RESET } from "../constants/orderConstants";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productsConstants";
 import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -87,6 +88,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: ORDER_USER_LIST_RESET });
   dispatch({ type: USER_LIST_RESET });
   dispatch({ type: CART_RESET });
+  dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
 };
 
 //REGISTER
