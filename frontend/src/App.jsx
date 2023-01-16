@@ -39,17 +39,28 @@ const App = () => {
             <Route path='/product/:id' element={<ProductScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
             <Route path='/' element={<HomeScreen />} />
+            <Route path='/page/:pageNumber' element={<HomeScreen />} />
+            <Route path='/search/:keyword' element={<HomeScreen />} />
+            <Route
+              path='/search/:keyword/page/:pageNumber'
+              element={<HomeScreen />}
+            />
 
             {/* <Route element={<IsTokenExpired />}> */}
             <Route path='/admin/userlist' element={<UserListScreen />} />
             <Route path='/admin/orderlist' element={<OrderListScreen />} />
             <Route path='/admin/productlist' element={<ProductListScreen />} />
+            <Route
+              path='/admin/productlist/page/:pageNumber'
+              element={<ProductListScreen />}
+            />
 
             <Route
               path='/admin/product/:id/edit'
               element={<ProductEditScreen />}
             />
             <Route path='/admin/users/:id/edit' element={<UserEditScreen />} />
+
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route path='/order/:id' element={<OrderScreen />} />
             <Route path='/shipping' element={<ShippingScreen />} />

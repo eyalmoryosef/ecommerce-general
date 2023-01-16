@@ -1,10 +1,16 @@
+//npm packages
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import { Route } from "react-router-dom";
+
+//components
+import SearchBox from "./SearchBox";
+
+//actions
 import { logout } from "../actions/userActions";
-import { Navigate } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -26,6 +32,7 @@ const Header = () => {
           </LinkContainer>
 
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
+          <SearchBox />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               <LinkContainer to='/cart'>
