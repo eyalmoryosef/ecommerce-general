@@ -2,14 +2,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 //components
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Paginate from "../components/Paginate";
-
+import ProductCarousel from "../components/ProductCarousel";
+import Meta from "../components/Meta";
 //actions
 import { listProducts } from "../actions/productActions.js";
 
@@ -18,6 +19,7 @@ const HomeScreen = () => {
   const { loading, error, products, page, pages } = productList;
   const dispatch = useDispatch();
   const keyword = useParams().keyword;
+
   const pageNumber = useParams().pageNumber || 1;
 
   useEffect(() => {
@@ -25,6 +27,14 @@ const HomeScreen = () => {
   }, [dispatch, keyword, pageNumber]);
   return (
     <>
+      <Meta />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>lastest products</h1>
       {loading ? (
         <Loader />
