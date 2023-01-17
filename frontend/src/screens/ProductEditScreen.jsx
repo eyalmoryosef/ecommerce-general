@@ -90,11 +90,9 @@ const ProductEditScreen = () => {
       };
 
       const { data } = await axios.post("/api/upload", formData, config);
-      console.log(data);
       setImage(data);
       setUploading(false);
     } catch (error) {
-      console.log(error);
       setUploading(false);
     }
   };

@@ -95,7 +95,7 @@ export const payOrder =
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      console.log("stuck");
+
       const { data } = await axios.put(
         `/api/order/${orderId}/pay`,
         paymentResult,
